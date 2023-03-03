@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minh Việt Orderfood</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body style="background-color: #f2f2f2">
+  <div class="container-fluid text-white px-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-nav" style="
+          font-size: 24px;
+          background: linear-gradient(
+            90deg,
+            rgb(15, 49, 87) 0%,
+            rgb(61, 131, 184) 12.39%,
+            rgb(25, 84, 120) 22.68%,
+            rgb(37, 129, 162) 51.57%,
+            rgb(6, 72, 147) 100%
+          );
+        ">
+      <div class="row w-100 justify-content-center">
+        <div class="col-1">
+          <a class="navbar-brand" href="#">
+            <img class="m-w-100" src="../user/logo.png" alt="" />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="col-5 my-auto">
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="#">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="./list-order.html">Danh sách</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="">Menu</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-5 my-auto">
+          <!-- <div class="collapse navbar-collapse" > -->
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
+            <a data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+              <i class="position-relative nav-link text-white fa fa-cart-shopping mt-2"></i>
+            </a>
+            <span class="position-absolute-start" style="color: orangered">1</span>
+            <span class="nav-link text-white"> Tuấn Anh code</span>
+            <!-- <button class="nav-link btn text-white">Login</button>
+                            <button class="nav-link btn text-white">Logout</button> -->
+          </ul>
+          <!-- </div> -->
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container mt-5 f-s-18">
+    <div class="row justify-content-center">
+      <div class="col-7">
+        <div id="list-food" class=""></div>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header" style="
+          background: linear-gradient(
+            90deg,
+            rgb(15, 49, 87) 0%,
+            rgb(61, 131, 184) 12.39%,
+            rgb(25, 84, 120) 22.68%,
+            rgb(37, 129, 162) 51.57%,
+            rgb(6, 72, 147) 100%
+          );
+        ">
+      <h5 class="offcanvas-title f-s-24 text-white" id="offcanvasExampleLabel">
+        Giỏ hàng
+      </h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="container offcanvas-body f-s-24 overflow">
+      <div class="" id="cart-list-food">
+        <div class="card mb-3">
+          <div class="card-body f-s-16">
+            <div class="row mb-2 justify-content-center">
+              <div class="col text-center text-uppercase fw-bold mb-2">
+                <span>Cơm sườn nướng description</span>
+              </div>
+            </div>
+            <div class="row align-items-center justify-content-between">
+              <div class="col">
+                <img
+                  src="https://images.foody.vn/res/g98/972442/s120x120/1e3b79c8-8887-47ba-bd6d-6de4c01a-6b31fec2-220218000958.jpeg"
+                  alt="" />
+              </div>
+              <div class="col">50000d</div>
+              <div class="col">
+                <i class="btn btn-primary fa fa-plus"></i>
+              </div>
+              <div class="col">
+                <i class="btn btn-danger fa-solid fa-trash"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-around">
+        <div class="col-5">Tổng cộng:</div>
+        <div class="col-5">100đ</div>
+      </div>
+      <div class="row">
+        <div class="col text-center mt-3">
+          <button type="button" class="btn btn-secondary btn-lg">
+            Xem Giỏ Hàng
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../../fontawesome-6.2.0/js/all.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/jquery/jquery-3.6.1.min.js"></script>
+  <script>
+    var arrOrder;
+    $.ajax({
+      url: "http://192.168.1.6:8386/foods",
+
+      method: "GET",
+      success: function (data) {
+        var cardListFood = "";
+        arrOrder = data;
+        // console.log(data);
+        data.forEach((el, index) => {
+          cardListFood += `<div class="card mt-3 ">
+                <!-- <div class="card-header">
+                  Name
+                </div> -->
+                <div class="card-body row justify-content-between  align-items-center">
+                    <div class="col-1">
+                  <img src="${el.photos}" alt="">
+                    </div>
+                    <div class="col-4 ms-2 ">
+                        <span class="f-s-20">${el.name}</span> <br>
+                        <span>${el.description}</span>
+                    </div>
+                    <div class="col-2">
+                        <span>${el.price} ${el.unit}</span>
+                    </div>
+                    <div class="col-1">
+                        
+                         <i class="btn btn-danger fa fa-plus" onclick = "addOrder(${index})"></i>
+                        
+                    </div>
+                </div>
+              </div>`;
+
+          //     html += `<tr class="">
+          // <th scope="row">${index + 1}</th>
+          // <td id="name-food"> ${el.name}</td>
+          // <td id="photo-food"><img src="${el.photos}" alt=""></td>
+          // <td id="description-food">${el.description}</td>
+          // <td id="price-food">${el.price} ${el.unit}</td>
+          // <td id="totallike-food">${el.total_like}</td>
+          // <td id="add">
+          //      <button class="btn btn-success" onclick ="addOrder(${index})" >Add</button>
+          // </td>
+          // <td id="delete"> <button class="btn btn-danger" onclick ="deleteOrder(${index})" >Delete</button> </td>
+          // </tr>`
+        });
+        $("#list-food").html(cardListFood);
+      },
+    });
+    var arr = [];
+    function addOrder(index) {
+      var cartListFood = "";
+
+      arrOrder.forEach((el, i) => {
+        cartListFood += `<div class="card mt-3 ">
+                <!-- <div class="card-header">
+                  Name
+                </div> -->
+                <div class="row mb-2 justify-content-center">
+                    <div class="col text-center fw-bolder mb-2 fs-5">
+                        <span class="">${el.name}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col fs-6 fw-bold text-center">
+                        <span>${el.description}</span>
+                    </div>     
+                </div> 
+                <div class="row card-body align-items-center justify-content-between">
+                    <div class="col">
+                        <img src="${el.photos}" alt="">
+                    </div>
+                    <div class="col">
+                        <span class="fs-5">${el.price} ${el.unit}</span>
+                    </div>  
+                    <div class="col">
+                         <i class="btn btn-danger fa fa-plus" onclick = "addOrder(${index})"></i>
+                    </div>
+
+                    <div class="col">
+                            <i class="btn btn-danger fa-solid fa-trash"></i>
+                        </div>
+                </div>
+              </div>`;
+        if (index == i) {
+          $("#cart-list-food").html(cartListFood);
+          arr.push(el);
+          // console.log(arr);
+          // console.log(el);
+        }
+        localStorage.setItem("order", JSON.stringify(arr));
+      });
+    }
+
+    function deleteOrder(index) {
+      arr.forEach((el, i) => {
+        console.log(arrOrder[index]);
+        if (el == arrOrder[index]) {
+          arr.splice(i, 1);
+        }
+        localStorage.setItem("order", JSON.stringify(arr));
+      });
+    }
+  </script>
+</body>
+
+</html>

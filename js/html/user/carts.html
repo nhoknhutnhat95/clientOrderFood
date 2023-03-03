@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Giỏ hàng</title>
+  </head>
+
+  <body style="background-color: #f2f2f2">
+    <div class="container-fluid text-white px-0">
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-nav"
+        style="
+          font-size: 24px;
+          background: linear-gradient(
+          90deg,
+          rgb(88 135 189) 0%,
+          rgb(61, 131, 184) 12.39%,
+          rgb(95 148 181) 22.68%,
+          rgb(46 179 227) 51.57%,
+          rgb(54 124 203) 100%
+        );
+      "
+      >
+        <div class="row w-100 justify-content-center">
+          <div class="col-1">
+            <a class="navbar-brand" href="#">
+              <img class="m-w-100" src="../user/logo.png" alt="" />
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarText"
+              aria-controls="navbarText"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div class="col-5 my-auto">
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a
+                    class="nav-link active text-white"
+                    aria-current="page"
+                    href="./home.html"
+                    >Trang chủ</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="./list-order.html"
+                    >Danh sách</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link text-white"
+                    href="./statistics-order-food.html"
+                    >Thống kê</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-5 col my-auto">
+            <!-- <div class="collapse navbar-collapse" > -->
+            <ul
+              class="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center align-items-center"
+            >
+              <!-- <span class="nav-link text-white ali">Giỏ hàng</span> -->
+              <a
+                class="d-flex align-items-center position-relative disable-link"
+              >
+                <i
+                  class="position-relative nav-link cursor-pointer text-white fa fa-cart-shopping mt-2"
+                ></i>
+                <span
+                  class="position-absolute numbers_product text-white f-s-18"
+                  style="top: 10%; left: 83%"
+                ></span>
+              </a>
+
+              <!-- <span class="totalSum"></span> -->
+              <!-- <button class="nav-link btn text-white">Login</button>
+                            <button class="nav-link btn text-white">Logout</button> -->
+            </ul>
+            <!-- </div> -->
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row mx-0 my-3 justify-content-center">
+        <div class="col f-s-30 text-center">Danh sách giỏ hàng của bạn</div>
+      </div>
+      <div class="row my-3 justify-content-center">
+        <table
+          class="col-md-12 col-8 my-3 table table-striped f-s-18 text-center px-3"
+          style="
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+              rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+          "
+        >
+          <thead>
+            <tr class="align-middle">
+              <th scope="col">STT</th>
+              <th scope="col">Ảnh món</th>
+              <th scope="col" width="20%">Tên món</th>
+              <th scope="col" width="20%">Mô tả</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Giá</th>
+              <th scope="col">Thành tiền</th>
+              <th scope="col">Xóa</th>
+            </tr>
+          </thead>
+          <tbody id="productPageCart">
+            <!-- <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td> -->
+          </tbody>
+          <tfoot>
+            <th scope="col" colspan="4">Tổng cộng</th>
+            <th scope="col" colspan="4" class="totalSumCart">0</th>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="row justify-content-around">
+        <button class="btn btn-primary col-2 py-3" onclick="sendCarts()">
+          Gửi đơn hàng
+        </button>
+        <button class="btn btn-danger col-2 py-3" onclick="cancelOrders()">
+          Hủy đơn hàng
+        </button>
+      </div>
+    </div>
+    <script src="../../fontawesome-6.2.0/js/all.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/jquery/jquery-3.6.1.min.js"></script>
+    <script src="/js/carts.js"></script>
+  </body>
+</html>

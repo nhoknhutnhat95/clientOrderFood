@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List Order</title>
+  <link rel="icon" type="image/png" href="https://minhviet.group/images/logo.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css//nav.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <div id="menu_nav"></div>
+  <div class="mb-3">
+    <label for=""></label>
+    <input type="search" class="form-control" onkeyup="searchByName()" id="search"
+      placeholder="tìm kiếm theo tên" />
+  </div>
+
+  <div class="container mt-4 listOrder" style="text-align: center">
+    <div class="row justify-content-center">
+      <div class="col text-center f-s-24">Danh sách người đặt món</div>
+    </div>
+    <div class="row my-5 justify-content-center">
+      <table class="table table-hover col" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px">
+        <thead class="">
+          <tr class="align-middle f-s-20 border-top">
+            <th scope="col">Tên người đặt</th>
+            <th scope="col">Thời gian đặt hàng</th>
+            <th scope="col">Tên món</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Thành tiền</th>
+          </tr>
+        </thead>
+
+        <tbody id="list-order"></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="../../fontawesome-6.2.0/js/all.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/jquery/jquery-3.6.1.min.js"></script>
+</body>
+<script>
+  $.ajax({
+    url: "http://192.168.1.19:8386/orders/getListOrders",
+    type: "GET",
+    headers: {
+      Authorization: `Bearer ${getCookie("token")}`,
+    },
+    success: (data) => {
+      if (data.status == 0) {
+        console.log(123);
+        Swal.fire({
+          title: "Thông báo!",
+          text: data.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          window.location.href = "./login.html";
+        });
+      } else {
+        var html = "";
+        data.list_order.forEach((element) => {
+          console.log(element.createTime);
+          html += `<tr>
+          <th rowspan=${element.dishes.length + 1
+            } class="align-middle border-end" scope="row">${element.username}</th>
+          <th rowspan=${element.dishes.length + 1
+            } class="align-middle border-end" scope="row">${element.createTime.slice(
+              0,
+              10
+            )}</th>
+            `;
+          for (let index = 0; index < element.dishes.length; index++) {
+            const el = element.dishes[index];
+            html += `<tr class="blockKey">
+                <td class="align-middle text-center text-break f-s-14">${el.name
+              }</td>
+                
+                <td class="align-middle text-center f-s-14">${el.quantity}</td>
+                <td class="align-middle text-center f-s-14 text-break">${el.description
+              }</td>
+                <td class="align-middle text-center f-s-14">${el.price} ${el.unit
+              }</td>
+                <td class="align-middle text-center f-s-14">${el.price * el.quantity
+              } ${el.unit}</td>
+                  </tr>`;
+          }
+
+          html += `</tr>`;
+        });
+      }
+      $("#list-order").html(html);
+    },
+  });
+
+  function searchByName() {
+    let input = document.getElementById("search").value;
+    input = input.toLowerCase();
+    con
+    let name = document.getElementsByClassName("name");
+
+    for (i = 0; i < name.length; i++) {
+      const blockKey = document.getElementsByClassName("blockKey");
+      if (
+        !name[i].innerHTML.toLowerCase().includes(input)
+      ) {
+        blockKey[i].style.display = "none";
+      } else {
+        blockKey[i].style.display = "revert";
+      }
+    }
+  }
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(";");
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+</script>
+<script src="/js/nav.js"></script>
+
+</html>

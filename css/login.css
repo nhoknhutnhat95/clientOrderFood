@@ -1,0 +1,221 @@
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .content-login {
+    background-color: rgb(238, 77, 45);
+}  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#login_form {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+}
+
+.box {
+    position: relative;
+    width: 350px;
+    min-height: 320px;
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent, #45f3ff, #45f3ff);
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+}
+
+.box::after {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 380px;
+    height: 420px;
+    background: linear-gradient(0deg, transparent, #45f3ff, #45f3ff);
+    transform-origin: bottom right;
+    animation: animate 6s linear infinite;
+    animation-delay: -3s;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.login_form {
+    position: absolute;
+    inset: 2px;
+    border-radius: 8px;
+    background-color: #28292d;
+    z-index: 10;
+    color: black;
+    padding: 20px;
+}
+
+.color_title {
+    color: #45f3ff;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.inputBox_login {
+    position: relative;
+    width: 300px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.inputBox_login input {
+    position: relative;
+    width: 100%;
+    padding: 10px 10px 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #23242a;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    z-index: 10;
+}
+
+.inputBox_login span {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    font-size: 1em;
+    color: #8f8f8f;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+}
+
+.inputBox_login input:valid~span,
+.inputBox_login input:focus~span {
+    color: #45f3ff;
+    transform: translateY(-34px);
+    font-size: 0.75em;
+}
+
+.inputBox_login input:valid,
+.inputBox_login input:focus {
+    padding: 10px 10px 10px;
+    /* background: #45f3ff; */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px ;
+    border-bottom-right-radius: 8px ;
+
+}
+
+
+.inputBox_login i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #45f3ff;
+    border-radius: 4px;
+    transition: 0.5s;
+    pointer-events: none;
+    z-index: 1;
+    animation: example 6s linear infinite;
+}
+
+.inputBox_login i::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff1b69, #ff0, #2196f3, #9c27b0, #ff1b69);
+    animation: mymove 2s linear infinite;
+}
+
+.inputBox_login input:-internal-auotfill-previewed {
+    background-color: #45f3ff;
+}
+
+@keyframes mymove {
+    0% {
+        background-position-x: 0;
+    }
+
+    0% {
+        background-position-x: 250px;
+    }
+}
+
+.inputBox_login input:valid~i,
+.inputBox_login input:focus~i {
+    height: 38px;
+    background: #45f3ff;
+
+}
+
+.inputBox_login input:valid~i::before,
+.inputBox_login input:focus~i::before {
+    background: #45f3ff;
+    border-radius: 8px
+}
+
+.link_form {
+    text-decoration: none;
+    font-size: 0.75em;
+    color: #8f8f8f;
+}
+
+.link_form:hover {
+    color: #45f3ff;
+}
+
+.link_changePassword {
+    margin-bottom: 20px;
+}
+
+.button_submit_login {
+    padding: 10px 30px 10px;
+    background-color: #45f3ff;
+    color: black;
+}
+
+.button_submit_login:hover {
+    background-color: #45f3ff !important;
+    opacity: 0.74;
+}
+
+.create_account {
+    color: #8f8f8f;
+}
+
+.btn_create_account {
+    color: #45f3ff;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+.btn_create_account:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>SB Admin 2 - Tables</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="/fontawesome-6.2.0/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this page -->
+    <!-- <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" /> -->
+</head>
+<body id="page-top">
+    <table id="data"></table>
+    
+    <script src="/jquery/jquery-3.6.1.min.js"></script>
+    <script src="/bootstrap-5.2.1/js/bootstrap.bundle.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        var arrUser;
+        var arr = [];
+        $.ajax({
+            url: "http://192.168.1.22:8386/users/getAllAccounts",
+            type: "GET",
+            // headers: {
+            //   Authorization: `Bearer ${getCookie("token")}`,
+            // },
+            success: (data) => {
+                console.log(data);
+                arrUser = data;
+                var html = "";
+                if (data.status == 0) {
+                    console.log(123);
+                    Swal.fire({
+                        title: "Thông báo!",
+                        text: data.message,
+                        icon: "error",
+                        confirmButtonText: "OK",
+                    }).then((result) => {
+                        window.location.href = "./login.html";
+                    });
+                } else {
+                    data.data.forEach((el) => {
+                        html += `<tr>
+                            <td" >${el.name}</td>
+                            <td">${el.phoneNumber}</td>
+                            <td">${el.password}</td>
+                            <td">${el.role}</td>
+                            <td">
+                                <a type="button" class="btn btn-primary" onclick="updateAccount()">Update</a>
+                                <a type="button" class="btn btn-danger" >Delete</a>
+                            </td>
+                        </tr>`;
+                        $("#data").html(html);
+                        arr.push(el);
+                        localStorage.setItem("user", JSON.stringify(arr));
+                    });
+                }
+            },
+        });
+
+      // function getCookie(cname) {
+      //     let name = cname + "=";
+      //     let decodedCookie = decodeURIComponent(document.cookie);
+      //     let ca = decodedCookie.split(';');
+      //     for (let i = 0; i < ca.length; i++) {
+      //         let c = ca[i];
+      //         while (c.charAt(0) == ' ') {
+      //             c = c.substring(1);
+      //         }
+      //         if (c.indexOf(name) == 0) {
+      //             return c.substring(name.length, c.length);
+      //         }
+      //     }
+      //     return "";
+      // }
+
+      // function deleteUser(index) {
+      //     for (var i = 0; i < arr.length; i++) {
+      //         const _id = arr[i]._id;
+      //         if (index == _id) {
+      //             var id = i;
+      //             break;
+      //         }
+      //     }
+      //     arr.splice(id, 1);
+      //     localStorage.setItem("user", JSON.stringify(arr));
+      // }
+
+      // function updateAccount() {
+
+      // }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Bootstrap Table with Add and Delete Row Feature</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="/css/account_management.css" />
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container-lg">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="mb-3">
+            <label for=""></label>
+            <input type="search" class="form-control" onkeyup="search()" id="search" placeholder="tìm kiếm theo tên hoặc số điện thoại" />
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <h2>Employee <b>Details</b></h2>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-info add-new">
+                <i class="fa fa-plus"></i> Add New
+              </button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>PhoneNumber</th>
+              <th>Password</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="data"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    var arrUser;
+    var arr = [];
+    $.ajax({
+      url: "http://192.168.1.6:8386/users/getAllAccounts",
+      type: "GET",
+      headers: {
+        Authorization: `Bearer ${getCookie("token")}`,
+      },
+      success: (data) => {
+        arrUser = data;
+        console.log(arrUser);
+        var html = "";
+        if (data.status == 0) {
+          console.log(123);
+          Swal.fire({
+            title: "Thông báo!",
+            text: data.message,
+            icon: "error",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            window.location.href = "../user/home.html";
+          });
+        } else {
+          data.data.forEach((el, index) => {
+            html += `<tr class="blockKey">
+                                <td class="key">${el.name}</td>
+                                <td >${el.phoneNumber}</td>
+                                <td >${el.password}</td>
+                                <td >${el.role}</td>
+                                <td >
+                                    <a class="add" title="Add" data-toggle="tooltip"><i
+                                            class="material-icons" onclick="updateAccount('${el._id}')">&#xE03B;</i></a>
+                                    <a class="edit" title="Edit" data-toggle="tooltip"><i
+                                            class="material-icons">&#xE254;</i></a>
+                                    <a class="delete" title="Delete" data-toggle="tooltip"><i
+                                            class="material-icons" id="deleteAccount" onclick="deleteAccount('${el._id}')">&#xE872;</i></a>
+                                </td>
+                            </tr>`;
+            $("#data").html(html);
+            arr.push(el);
+            console.log(arr);
+            
+            localStorage.setItem("user", JSON.stringify(arr));
+          });
+        }
+      },
+    });
+
+    function getCookie(cname) {
+      let name = cname + "=";
+      let decodedCookie = decodeURIComponent(document.cookie);
+      let ca = decodedCookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == " ") {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    function deleteAccount(id) {
+      $(this).parents("tr").remove();
+      $(".add-new").removeAttr("disabled");
+      $.ajax({
+        url: `http://192.168.1.6:8386/users/deleteAccount/${id}`,
+        type: "DELETE",
+        headers: {
+          Authorization: `Bearer ${getCookie("token")}`,
+        },
+        success: () => {
+          console.log("Account đã được xóa");
+        },
+      });
+    }
+
+    function search() {
+    let input = document.getElementById('search').value
+    input=input.toLowerCase();
+    console.log(input);
+    let x = document.getElementsByClassName('key');
+    console.log(x)
+    
+    for (i = 0; i < x.length; i++) { 
+      const blockKey = document.getElementsByClassName('blockKey')
+      if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            blockKey[i].style.display = 'none';
+            // x[i].style.display="none";
+        }
+        else {
+            blockKey[i].style.display="revert";  
+        }
+    }
+}
+
+    $(document).on("click", ".edit", function () {
+      $(this)
+        .parents("tr")
+        .find("td:not(:last-child)")
+        .each(function () {
+          $(this).html(
+            '<input type="text" name="test[]" class="form-control" value="' +
+            $(this).text() +
+            '">'
+          );
+        });
+      $(this).parents("tr").find(".add, .edit").toggle();
+      $(".add-new").attr("disabled", "disabled");
+    });
+
+    function updateAccount(id) {
+      $(document).on("click", ".add", function () {
+        var empty = false;
+        var input = $(this).parents("tr").find('input[type="text"]');
+        input.each(function () {
+          if (!$(this).val()) {
+            $(this).addClass("error");
+            empty = true;
+          } else {
+            $(this).removeClass("error");
+          }
+        });
+        $(this).parents("tr").find(".error").first().focus();
+        if (!empty) {
+          input.each(function () {
+            $(this).parent("td").html($(this).val());
+          });
+          console.log();
+          $(this).parents("tr").find(".add, .edit").toggle();
+          $(".add-new").removeAttr("disabled");
+        }
+      });
+
+      var arrInf = [];
+      var inputs = $("input[name^=test]");
+      for (i = 0; i < inputs.length; i++) {
+        let el = inputs[i];
+        arrInf.push(el.value);
+      }
+      var formData = {
+        _id: id,
+        name: arrInf[0],
+        phoneNumber: arrInf[1],
+        password: arrInf[2],
+        role: arrInf[3],
+      };
+
+      console.log(formData);
+
+      // var test = $('input[name^=test]').map(el => $(el).val());
+      $.ajax({
+        url: `http://192.168.1.6:8386/users/updateAccount`,
+        type: "POST",
+        headers: {
+          Authorization: `Bearer ${getCookie("token")}`,
+        },
+        data: formData,
+        success: (data) => {
+          if (data.status == 1) {
+            Swal.fire({
+              title: "Thông báo!",
+              text: data.message,
+              icon: "success",
+              confirmButtonText: "OK",
+            });
+          } else {
+            Swal.fire({
+              title: "Thông báo!",
+              text: data.message,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          }
+          // console.log('Account đã được cập nhật thành công');
+        },
+      });
+    }
+  </script>
+</body>
+
+</html>

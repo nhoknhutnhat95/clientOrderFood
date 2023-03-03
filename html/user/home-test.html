@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="https://minhviet.group/images/logo.png" />
+  <title>Minh Việt Orderfood</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/animation-add.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+</head>
+<style></style>
+
+<body style="
+      background-color: #ece9e9;
+      background-image: url('http://glorywebsdemo.com/themeforest/html/carveordering/images/p_bg.jpg');
+      width: 100%;
+    ">
+  <header id="template_header">
+  </header>
+  <nav id="sidebar_navbar"></nav>
+  <!-- <div class="container-fluid">
+    <div class="row" style="position: fixed; top: 30%; right: 0.6%;">
+      <div class="col-sm-auto bg-dark sticky-top">
+        <div class="d-flex flex-sm-column flex-row flex-nowrap bg-dark align-items-center sticky-top">
+          <a href="../user/home.html" class="d-block p-3 link-light text-decoration-none" title=""
+            data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Trang chủ">
+            <i class="fa fa-home" style="font-size: 25px;"></i>
+          </a>
+          <ul
+            class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+            <li class="nav-item">
+              <a href="../user/list-order.html" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip"
+                data-bs-placement="right" data-bs-original-title="Danh sách">
+                <i class="fa fa-list" style="font-size: 25px;"></i>
+              </a>
+            </li>
+            <li>
+              <a href="../user/history-orders.html" class="nav-link link-light py-3 px-2" title=""
+                data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Lịch sử đơn hàng">
+                <i class="fa fa-history" style="font-size: 25px;"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip" name="iformationUser"
+                data-bs-toggle="modal" data-bs-target="#changePassword" data-bs-placement="right"
+                data-bs-original-title="Đổi mật khẩu">
+                <i class="fa fa-key" style="font-size: 25px;"></i>
+              </a>
+            </li>
+            <li>
+              <a href="../user/carts.html" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip"
+                data-bs-placement="right" data-bs-original-title="Giỏ hàng">
+                <i class="fa fa-shopping-cart position-relative" style="font-size: 1.5rem !important;">
+
+                </i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip"
+                data-bs-placement="right" data-bs-original-title="Thống kê">
+
+                <i class="fa fa-table-cells" style="font-size: 25px;"></i>
+
+              </a>
+            </li>
+            <li>
+              <a href="../admin/account_management.html" class="nav-link link-light py-3 px-2" title=""
+                data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Quản lý tài khoản">
+                <i class="fa fa-people-group" style="font-size: 25px;"></i>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-link link-light py-3 px-2" title="" data-bs-toggle="tooltip"
+                data-bs-placement="right" data-bs-original-title="Đăng xuất">
+                <i class="fa fa-right-from-bracket" style="font-size: 25px;"></i>
+
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+
+  <!-- Modal ChangePassword -->
+  <!-- <div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-black">
+        <div class="modal-header text-center">
+          <span class="modal-title f-s-24" id="changePasswordLabel">
+            Đổi mật khẩu
+          </span>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body f-s-18 container">
+          <form action="">
+            <input type="text" class="mb-3 form-control" placeholder="Sô điện thoại" disabled
+              id="phoneNumber_account" />
+            <input type="password" class="mb-3 form-control" id="oldPassword" placeholder="Nhập mật khẩu cũ" />
+            <div class="invalid-tooltip">Vui lòng nhập mật khẩu cũ</div>
+            <input type="password" id="newPassword" class="mb-3 form-control" placeholder="Nhập mật khẩu mới" />
+            <input type="password" id="repeatPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" />
+            <div style="text-align: start">
+              <span id="validator-repeatPassword" class="f-s-14" style="color: red"></span>
+            </div>
+            <div class="justify-content-center text-center mt-3">
+              <button type="button" onclick="changePassword()" class="btn btn-primary">
+                Đồng ý
+              </button>
+              <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn btn-danger">
+                Hủy
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="container pt-5">
+    <div class="row justify-content-center text-center">
+      <div class="col-10" style="font-size: 3rem">Danh sách món hôm nay</div>
+    </div>
+    <div class="row mt-5 justify-content-start" id="data_foods"></div>
+  </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header" style="
+          background: linear-gradient(
+            90deg,
+            rgb(88 135 189) 0%,
+            rgb(61, 131, 184) 12.39%,
+            rgb(95 148 181) 22.68%,
+            rgb(46 179 227) 51.57%,
+            rgb(54 124 203) 100%
+          );
+        ">
+      <span class="f-s-24 text-white">Giỏ hàng</span>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <hr />
+    <div class="offcanvas-body container">
+      <div id="cart-list-food" class="showCart"></div>
+      <div class="row mt-2 justify-content-center">
+        <div class="col-10 text-center">
+          <span style="font-size: 30px">Tổng tiền:</span>
+          <span style="font-size: 30px" class="sumTotal"></span>
+          <span style="font-size: 30px" id="unit-item">đ</span>
+        </div>
+      </div>
+      <div class="row mt-2 justify-content-center">
+        <a class="col-10 text-white text-center py-3 f-s-24 text-decoration-none my-3" href="./carts.html" style="
+              background: linear-gradient(
+                90deg,
+                rgb(88 135 189) 0%,
+                rgb(61, 131, 184) 12.39%,
+                rgb(95 148 181) 22.68%,
+                rgb(46 179 227) 51.57%,
+                rgb(54 124 203) 100%
+              );
+            ">Xem giỏ hàng</a>
+      </div>
+    </div>
+  </div>
+  <script src="../../fontawesome-6.2.0/js/all.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/jquery/jquery-3.6.1.min.js"></script>
+  <!-- <script src="/js/nav.js"></script> -->
+  <script src="/js/nav.js"></script>
+  <script src="/js/main.js"></script>
+  <script></script>
+</body>
+
+</html>
